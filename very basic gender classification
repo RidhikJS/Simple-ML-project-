@@ -1,0 +1,62 @@
+#classifying gender on the basis of their [height,weight,shoe size]
+#dataset
+
+X = [[181,80,44],[177,70,43],[160,60,38],[154,54,37],[166,65,40],[190,90,47],[175,64,39],[177,70,40],[159,55,37],[171,75,42],[181,85,43]]
+
+
+#labels for training
+Y1 = ['male','female','female','female','male','male','male','female','male','female','male']
+Y2 =[1,0,0,0,1,1,1,0,1,0,1]
+#passing Y1 in decision tree regressor
+#passing Y2 in decisionn tree classifier and random forest
+#we are predicting [180,80,43] & directly feeding to model
+
+
+#using decision tree  regressor
+def d_regress(X,Y):
+    
+    from sklearn.tree import DecisionTreeRegressor
+    
+    #creating a variable to store the model
+    clf = DecisionTreeRegressor(random_state = 0)
+    #training the model on data
+    clf.fit(X,Y)
+    prediction = clf.predict([[180,80,43]])
+    
+    if (prediction == 1.0):
+        print('Prediction  by Decision Tree Regressor : Male')
+    else:
+        print('Prediction by Decision Tree Regressor: Female')
+        
+
+#using decison tree classifier
+def d_classifier(X,Y):
+    
+    from sklearn.tree import DecisionTreeClassifier
+    
+    #creating a variable to store the model
+    clf = DecisionTreeClassifier()
+    #training the model on data
+    clf.fit(X,Y)
+    prediction = clf.predict([[180,80,43]])
+    
+    print("Prediction by classifier : %s " %prediction)
+
+#using random forest
+def ran_forest(X,Y):
+    
+    from sklearn.ensemble import RandomForestRegressor
+    
+    #creating a variable to store the model
+    clf = RandomForestRegressor(random_state = 0)
+    #training the model on data
+    clf.fit(X,Y)
+    prediction = clf.predict([[180,80,43]])
+    
+    if (prediction == 1.0):
+        print('Prediction by Random forest : Male\n')
+    else:
+        print('Prediction by Random forest : Female\n')
+    
+#models in a list
+list_of_models = [d_classifier(X,Y1),d_regress(X,Y2),ran_forest(X,Y2)]
